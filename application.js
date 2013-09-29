@@ -14,7 +14,7 @@ function initialize() {
 function loadScript() {
   var script = document.createElement("script");
   script.type = "text/javascript";
-  script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBl7QY2_mD9bBhZvI3U8o_0ggqIhgu9VpA&sensor=true&callback=initialize";
+  script.src = "http://maps.google.com/maps/api/js?sensor=false&callback=initialize";
   document.body.appendChild(script);
 }
 
@@ -28,10 +28,6 @@ function codeAddress() {
 
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
@@ -44,20 +40,40 @@ function codeAddress() {
 function findEarthquakes(n,s,e,w) {
   document.getElementById("address").value
   $.ajax({
-  url: "http://api.geonames.org/earthquakesJSON?north="+n+"&south="+s+"&east="+e+"&west="+w+"&username=wctej89"
+    url: "http://api.geonames.org/earthquakesJSON?north="+n+"&south="+s+"&east="+e+"&west="+w+"&username=wctej89"
   }).success(function(response) {
-    markEarthquakes(response.earthquakes);
+    earthquakesArray = response.earthquakes;
+    drop();
   })
 }
 
-function markEarthquakes(earthquakesArray) {
-  earthquakesArray.forEach(function(i) {
-    var quakeLocation = new google.maps.LatLng(i.lat,i.lng)
-    var marker = new google.maps.Marker({
-      map: map,
-      position: quakeLocation
-    });
+function drop() {
+  for (var i = 0; i < earthquakesArray.length; i++) {
+    setTimeout(function() {
+      addMarker();
+    }, i * 200);
+  }
+  counter = 0;
+}
+
+function addMarker() {
+  var quakeLocation = new google.maps.LatLng(earthquakesArray[counter].lat,earthquakesArray[counter].lng)
+  var marker = new google.maps.Marker({
+    map: map,
+    animation: google.maps.Animation.DROP,
+    draggable: false,
+    position: quakeLocation
   });
+  var contentString = earthquakesArray[counter].datetime;
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    $('.gm-style-iw').parent().remove()
+    infowindow.open(map,marker);
+  });
+  counter++;
 }
 
 window.onload = loadScript;

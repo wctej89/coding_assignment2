@@ -1,4 +1,108 @@
 html { height: 100% }
-body { height: 100%; margin: 0; padding: 0 }
+body { height: 100%; margin: 0; padding: 0;  }
 
-#map-canvas { height: 100% }
+.bottom {
+  width: 100%; 
+  height: 90%;
+  position: relative;
+  z-index: 1;
+}
+#map-canvas {
+  display: inline-block;
+  width: 74.9%; 
+  height: 100%;
+}
+
+#left-pane {
+  width:25%;
+  height: 100%;
+  display: inline-block;
+  box-shadow: 4px 0px 4px rgb(151, 148, 148);
+  float: left;
+  position: relative;
+  z-index: 5;
+}
+
+.fact-box {
+  width: 80%;
+  height: 80%;
+  margin-left: 12%;
+}
+
+#fact {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #333;
+  font-size: 25px;
+  line-height: 1.1;
+}
+
+#fact-title {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #333;
+  font-size: 2em;
+}
+
+.header{
+  height: 10%;
+  width: 100%;
+  background: #95a5a6;
+  border-bottom: 1px solid #666;
+  border-color: #e5e5e5;
+  position: relative;
+  z-index: 10;
+}
+
+img {
+  width: 15%;
+  margin-top: 1.2%;
+  margin-left: 3%;
+}
+
+#searchbox {
+  width: 80%;
+  height: 39px;
+  font-size: 30px;
+  float: left;
+}
+
+#searchsubmit {
+  padding: .62em;
+  width: 19%;
+  font-family: 'symmetrycode-icons';
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  text-decoration: inherit;
+  text-align: center;
+  font-size: 1em;
+  height: 45px;
+}
+
+#search {
+  margin-top: 1.2%;
+  display: inline-block;
+  width: 75%;
+  float: right;
+}
+button {
+  background-color: #4d90fe;
+  font-weight: 400;
+  color: white;
+  padding: 1em 1.5em;
+  border: none;
+  font-size: .75em;
+  cursor: pointer;
+  -webkit-text-stroke: 0;
+  -webkit-transition: all .1s ease;
+  -moz-transition: all .1s ease;
+  -ms-transition: all .1s ease;
+  -o-transition: all .1s ease;
+  transition: all .1s ease;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background: #ffc64d;
+}

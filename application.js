@@ -63,10 +63,11 @@ function codeAddress() {
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
-        var north = results[0].geometry.viewport.ea.d; 
-        var south = results[0].geometry.viewport.ea.b;
-        var east = results[0].geometry.viewport.ia.d;
-        var west = results[0].geometry.viewport.ia.b;
+        var coordinates = map.getBounds().toUrlValue().split(",")
+        var north = coordinates[2];
+        var south = coordinates[0];
+        var east = coordinates[3];
+        var west = coordinates[1];
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
@@ -111,10 +112,10 @@ function addMarker() {
 }
 
 function addInfoWindow(marker,quake) {
-    var contentString = "<p style='margin-bottom: 0;'>Date: " + quake.datetime + "</p>" + "<p style='margin-top: 0; margin-bottom: 0;'>Magnitude: " + quake.magnitude + "</p>";
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
+  var contentString = "<p style='margin-bottom: 0;'>Date: " + quake.datetime + "</p>" + "<p style='margin-top: 0; margin-bottom: 0;'>Magnitude: " + quake.magnitude + "</p>";
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
 
   google.maps.event.addListener(marker, 'click', function() {
     $('.gm-style-iw').parent().remove() 

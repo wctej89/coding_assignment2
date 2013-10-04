@@ -63,11 +63,12 @@ function codeAddress() {
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
-        var coordinates = map.getBounds().toUrlValue().split(",")
-        var north = coordinates[2];
-        var south = coordinates[0];
-        var east = coordinates[3];
-        var west = coordinates[1];
+        var box = results[0].geometry.bounds
+        var keys = Object.keys(results[0].geometry.bounds)
+        var north = box[keys[0]].d
+        var south = box[keys[0]].b
+        var east = box[keys[1]].d
+        var west = box[keys[1]].b
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
